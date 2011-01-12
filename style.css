@@ -83,3 +83,14 @@ body {
 #primary.sidebar .searchform .s {
 	width: 234px;
 }
+
+#footer {
+	background-color: #322C2C;
+	color: #CCCCCC;
+	border: none;
+}
+
+#footer .footer-sidebar-container {
+	border-bottom: none;
+	display: none;
+}
