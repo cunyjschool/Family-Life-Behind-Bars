@@ -33,13 +33,13 @@ body {
 	padding:0;
 }
 
-#header .logo h1.blog-name {
+#header .logo .blog-name {
 	display: inline;
 	line-height: 0;
 	margin: 0;
 }
 
-#header .logo h2.blog-description {
+#header .logo .blog-description {
 	display: none;
 }
 
