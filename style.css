@@ -52,7 +52,7 @@ body {
 	background-color: #F0E6C7;
 	color: #322C2C;
 	border-left: 1px solid #D3D1C7;
-	border-right: 1px solid #D3D1C7;	
+	border-right: 1px solid #D3D1C7;
 }
 
 #nav #nav-content a {
@@ -73,9 +73,9 @@ body {
 	background-color: #F0E6C7;
 }
 
-#main #index-featured1 {
+#main #index-featured1, #main #index-featured2 {
 	background-color: #FFFFFF;
 	padding: 10px;
-	margin-bottom: 10px;
+	margin-bottom: 20px;
 	margin-right: 10px;
 }
