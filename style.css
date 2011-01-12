@@ -1,0 +1,81 @@
+/*
+Theme Name:     Family Life Behind Bars - Sandeep Junnarkar
+Theme URI:      http://prison.livesinfocus.org/
+Description:    Arras child theme for Sandeep Junnarkar's Family Life Behind Bars website
+Author:			Daniel Bachhuber
+Author URI:		http://danielbachhuber.com/
+Template:       arras
+Version:        0.1
+*/
+
+@import url("../arras/style.css");
+
+body {
+	background-color: #322C2C;
+}
+
+#branding {
+	border-left: 1px solid #D3D1C7;
+	border-right: 1px solid #D3D1C7;
+}
+
+#header #searchbar {
+	display: none;
+}
+
+#header {
+	border-bottom: none;
+	background-color: #322C2C;
+}
+
+#header .logo {
+	margin: 0;
+	padding:0;
+}
+
+#header .logo h1.blog-name {
+	display: inline;
+	line-height: 0;
+	margin: 0;
+}
+
+#header .logo h2.blog-description {
+	display: none;
+}
+
+#nav {
+	background-image: none;
+}
+
+#nav-content {
+	width: 980px;
+	background-color: #F0E6C7;
+	color: #322C2C;
+	border-left: 1px solid #D3D1C7;
+	border-right: 1px solid #D3D1C7;	
+}
+
+#nav #nav-content a {
+	color: #322C2C;
+}
+
+#nav #nav-content a:hover {
+	color: #FFFFFF;
+	background-color: #CCCCCC;
+}
+
+#wrapper {
+	padding-top: 0px;
+}
+
+#wrapper #main {
+	border-top: none;
+	background-color: #F0E6C7;
+}
+
+#main #index-featured1 {
+	background-color: #FFFFFF;
+	padding: 10px;
+	margin-bottom: 10px;
+	margin-right: 10px;
+}
