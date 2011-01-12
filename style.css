@@ -79,3 +79,7 @@ body {
 	margin-bottom: 20px;
 	margin-right: 10px;
 }
+
+#primary.sidebar .searchform .s {
+	width: 234px;
+}
