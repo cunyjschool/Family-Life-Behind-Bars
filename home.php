@@ -63,6 +63,28 @@ $post_blacklist = array();
 </div><!-- #index-featured2 -->
 <?php endif; ?>
 
+<?php $sidebars = wp_get_sidebars_widgets(); ?>
+
+<div id="bottom-content-1">
+	<?php if ( isset($sidebars['sidebar-4']) ) : ?>
+	<ul class="clearfix xoxo">
+    	<?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('Bottom Content #1') ) : ?>
+		<li></li>
+        <?php endif; ?>
+	</ul>
+	<?php endif; ?>
+</div>
+
+<div id="bottom-content-2">
+	<?php if ( isset($sidebars['sidebar-5']) ) : ?>
+	<ul class="clearfix xoxo">
+    	<?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('Bottom Content #2') ) : ?>
+		<li></li>
+        <?php endif; ?>
+	</ul>
+	<?php endif; ?>
+</div>
+
 <?php if ( arras_get_option('enable_news') ) : ?>
 <?php arras_above_index_news_post() ?>
 <!-- News Articles -->
@@ -87,28 +109,6 @@ arras_render_posts( null, arras_get_option('news_display'), arras_get_option('ne
 </div><!-- #index-news -->
 <?php arras_below_index_news_post() ?>
 <?php endif; ?>
-
-<?php $sidebars = wp_get_sidebars_widgets(); ?>
-
-<div id="bottom-content-1">
-	<?php if ( isset($sidebars['sidebar-4']) ) : ?>
-	<ul class="clearfix xoxo">
-    	<?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('Bottom Content #1') ) : ?>
-		<li></li>
-        <?php endif; ?>
-	</ul>
-	<?php endif; ?>
-</div>
-
-<div id="bottom-content-2">
-	<?php if ( isset($sidebars['sidebar-5']) ) : ?>
-	<ul class="clearfix xoxo">
-    	<?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('Bottom Content #2') ) : ?>
-		<li></li>
-        <?php endif; ?>
-	</ul>
-	<?php endif; ?>
-</div>
 
 <?php else: ?>
 
