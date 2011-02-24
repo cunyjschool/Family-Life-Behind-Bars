@@ -35,6 +35,20 @@ $post_blacklist = array();
 </div><!-- #index-featured1 -->
 <?php endif; ?>
 
+<div class="featured-videos">
+	
+	<div class="primary-video">
+	
+	</div>
+	
+	<div class="video-thumbnails">
+		
+	</div>
+	
+	<div style="clear:left;"></div>
+	
+</div>
+
 <?php if ( $featured2_cat !== '' && arras_get_option('enable_featured2') ) : ?>
 <?php arras_above_index_featured2_post() ?>
 <!-- Featured Articles #2 -->
@@ -117,4 +131,80 @@ arras_render_posts( null, arras_get_option('news_display'), arras_get_option('ne
 </div><!-- #content -->
     
 <?php get_sidebar(); ?>
+
+<script type='text/javascript'>
+
+	jQuery(document).ready(function() {
+		/**
+		 * flbb_load_featured_videos()
+		 * Generate a featured video player for the homepage
+		 */
+		function flbb_load_featured_videos( vimeo_channel_url ) {
+
+			jQuery.ajax({
+				url: vimeo_channel_url,
+				dataType: 'jsonp',
+				success: function( data ) {
+					jQuery.each( data, function( key, video ) {
+						// Add the first video to the primary viewer
+						if ( key == 0 ) {
+							flbb_replace_primary_video( video.url );
+						}
+
+						if ( key <= 4 ) {
+							var html = '';
+							html += '<div class="video-thumbnail';
+							if ( key == 0 ) {
+								html += ' active';
+							}
+							html += '" id="' + video.url + '"">';
+							html += '<img src="' + video.thumbnail_small + '" height="75px" width="100px" />';
+							html += video.title;
+							html += '</div>';
+
+							jQuery('.featured-videos .video-thumbnails').append( html );
+						}
+					});
+
+					jQuery('.featured-videos .video-thumbnail').click(function() {
+						jQuery('.video-thumbnail').removeClass('active');
+						var url = jQuery(this).attr('id');
+						flbb_replace_primary_video( url );
+						jQuery(this).addClass('active');
+					});
+
+					jQuery('.featured-videos').show();
+				}, 
+			});
+
+		} // END flbb_load_featured_videos()
+
+		/**
+		 * flbb_replace_primary_video()
+		 */
+		function flbb_replace_primary_video( url ) {
+
+			var request_url = 'http://vimeo.com/api/oembed.json?';
+			request_url += 'url=' + url + '&maxwidth=630&byline=false&title=false&portrait=false';
+			jQuery.ajax({
+				url: request_url,
+				dataType: 'jsonp',
+				success: function( data ) {
+					var html = '';
+					html += data.html;
+					html += '<h4><a href="' + url + '">' + data.title + '</a></h4>';
+					jQuery('.featured-videos .primary-video').empty().html( html );
+				},
+			});
+
+		} // END flbb_replace_primary_video()
+
+		// Dynamically load the featured video viewer
+		flbb_load_featured_videos( 'http://vimeo.com/api/v2/channel/cunyjschool/videos.json' );
+		
+	});	
+		
+
+</script>
+
 <?php get_footer(); ?>
