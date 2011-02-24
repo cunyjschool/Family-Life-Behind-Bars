@@ -47,6 +47,8 @@ $post_blacklist = array();
 	
 	<div style="clear:left;"></div>
 	
+	<div class="more-link"><a href="http://video.livesinfocus.org/">More videos</a></div>
+	
 </div>
 
 <?php if ( $featured2_cat !== '' && arras_get_option('enable_featured2') ) : ?>
@@ -200,7 +202,7 @@ arras_render_posts( null, arras_get_option('news_display'), arras_get_option('ne
 		} // END flbb_replace_primary_video()
 
 		// Dynamically load the featured video viewer
-		flbb_load_featured_videos( 'http://vimeo.com/api/v2/channel/cunyjschool/videos.json' );
+		flbb_load_featured_videos( 'http://vimeo.com/api/v2/familylifebehindbars/videos.json' );
 		
 	});	
 		
