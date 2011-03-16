@@ -38,10 +38,12 @@
 			
 			<div class="navigation">
 				<div class="left-navigation navigation-link">
-					<?php previous_image_link( array( 64, 64 ) ); ?><p><?php previous_image_link( false, '&larr; Previous' ); ?>
+					<?php previous_image_link( array( 64, 64 ) ); ?>
+					<p><?php previous_image_link( false, '&larr; Previous' ); ?></p>
 				</div>
 				<div class="right-navigation navigation-link">
-					<?php next_image_link( array( 64, 64 ) ); ?><p><?php next_image_link( false, 'Next &rarr;' ); ?>
+					<?php next_image_link( array( 64, 64 ) ); ?>
+					<p><?php next_image_link( false, 'Next &rarr;' ); ?></p>
 				</div>
 			</div>
 			
