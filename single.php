@@ -7,9 +7,9 @@
 	<?php arras_above_post() ?>
 	<div id="post-<?php the_ID() ?>" <?php arras_single_post_class() ?>>
 
-        <?php arras_postheader() ?>
+        <?php arras_postheader(); ?>
 
-		<?php share_this() ?>
+		<?php flbb_share_this(); ?>
         
         <div class="entry-content clearfix">
 		<?php the_content( __('<p>Read the rest of this entry &raquo;</p>', 'arras') ); ?>  
