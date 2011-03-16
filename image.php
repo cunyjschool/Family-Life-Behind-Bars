@@ -66,5 +66,3 @@
 </div><!-- END - .wrap -->
 
 <?php get_footer(); ?>
-
-<?php $my_query = new WP_Query('category_name=special_cat'); while ($my_query->have_posts()) : $my_query->the_post(); ?>
