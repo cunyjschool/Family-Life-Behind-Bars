@@ -36,3 +36,14 @@ Version:        0.2
 .no-bottom-pads{
 	padding-bottom:0;
 }
+
+.left {
+	width:50%;
+	float:left;
+	text-align:left;
+}
+.right {
+	width:50%;
+	float:right;
+	text-align:right;
+}

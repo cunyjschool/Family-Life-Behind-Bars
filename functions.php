@@ -27,4 +27,10 @@ function catch_that_image() {
 	 return $first_img;
 }
 
+function share_this() { ?>
+	
+	<span class='st_facebook' st_title='{TITLE}' st_url='{URL}' ></span><span class='st_twitter' st_title='{TITLE}' st_url='{URL}' ></span><span class='st_email' st_title='{TITLE}' st_url='{URL}' ></span><span class='st_sharethis' st_title='{TITLE}' st_url='{URL}' ></span>
+
+<?php }
+
 ?>
