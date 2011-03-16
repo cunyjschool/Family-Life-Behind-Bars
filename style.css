@@ -10,39 +10,40 @@ Version:        0.2
 
 @import url("../arras/style.css");
 
-.clear{
+.clear {
 	display:block;
 	width:100%;
 	clear:both;
 }
 
-#foo{
+.photo-of-the-week ol {
 	list-style:none;
 	display:block;
 	padding:0;
 	margin:0;
 }
-#foo li{
+.photo-of-the-week ol li {
 	float:left;
 	margin-bottom:10px;
 	height:90px;
 }
-#foo li img{
+.photo-of-the-week ol li img {
 	width:110px;
 	margin:0 9px 0 0;
 	
 }
 
-.no-bottom-pads{
+.no-bottom-pads {
 	padding-bottom:0;
 }
 
-.left {
+.photo-of-the-week .left {
 	width:50%;
 	float:left;
 	text-align:left;
 }
-.right {
+
+.photo-of-the-week .right {
 	width:50%;
 	float:right;
 	text-align:right;

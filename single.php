@@ -17,7 +17,7 @@
 			'after' => '</p>', 'next_or_number' => 'number')); ?>
 			
 		<?php if ( in_category('photo-of-the-week') ) { ?>	
-			<div class="clearfix">
+			<div class="clearfix photo-of-the-week">
 				<div class="left"><?php previous_post_link('&laquo; %link', '%title', TRUE); ?></div>
 				<div class="right"><?php next_post_link('%link  &raquo;', '%title', TRUE); ?></div>
 			</div>
@@ -33,16 +33,19 @@
         ?>
     </div>
 	
-	<?php if ( in_category('photo-of-the-week') ) { ?>	
+	<?php if ( in_category( 'photo-of-the-week' ) ) { ?>	
 		<h4 class="module-title">Photo of the Week Archive</h4>
-		<div class="nocomments no-bottom-pads">
+		<div class="nocomments no-bottom-pads photo-of-the-week">
 			<ol id="foo">
 				<?php 
-					$args = array('category_name' => 'photo-of-the-week','posts_per_page' => 15);
-					$featured = new WP_Query($args); 
-					if( $featured->have_posts()) { 
+					$args = array(
+						'category_name' => 'photo-of-the-week',
+						'posts_per_page' => 15
+					);
+					$featured = new WP_Query( $args ); 
+					if ( $featured->have_posts()) { 
 						while($featured->have_posts()) : $featured->the_post(); ?>
-							<li><a href="<?php echo the_permalink(); ?>" title="<?php the_title(); ?>" ><img src="<?php echo catch_that_image() ?>" class="avatar" alt="<?php the_title(); ?>" /></a></li>
+							<li><a href="<?php echo the_permalink(); ?>" title="<?php the_title(); ?>" ><?php the_post_thumbnail(); ?></a></li>
 						<?php endwhile; 
 					} 
 				?>
