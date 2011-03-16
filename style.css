@@ -5,44 +5,48 @@ Description:    Arras child theme for Sandeep Junnarkar's Family Life Behind Bar
 Author:			Daniel Bachhuber
 Author URI:		http://danielbachhuber.com/
 Template:       arras
-Version:        0.2
+Version:        0.3
 */
 
 @import url("../arras/style.css");
 
-.clear{
+.clear {
 	display:block;
 	width:100%;
 	clear:both;
 }
 
-#foo{
-	list-style:none;
+.photo-of-the-week ol {
+	list-style-type:none;
 	display:block;
 	padding:0;
-	margin:0;
+	margin: 0;
 }
-#foo li{
+.photo-of-the-week ol li {
 	float:left;
-	margin-bottom:10px;
-	height:90px;
+	margin-bottom: 10px;
+	margin-left: 3px;
+	margin-right: 3px;
 }
-#foo li img{
-	width:110px;
-	margin:0 9px 0 0;
-	
+.photo-of-the-week ol li img {
+	width:90px;
+	height:90px;	
+	margin:0 0 0 0;
+	border: 1px solid #CCCCCC;
+	padding: 2px;
 }
 
-.no-bottom-pads{
+.no-bottom-pads {
 	padding-bottom:0;
 }
 
-.left {
+.photo-of-the-week .left {
 	width:50%;
 	float:left;
 	text-align:left;
 }
-.right {
+
+.photo-of-the-week .right {
 	width:50%;
 	float:right;
 	text-align:right;

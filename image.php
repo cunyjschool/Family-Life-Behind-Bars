@@ -38,10 +38,12 @@
 			
 			<div class="navigation">
 				<div class="left-navigation navigation-link">
-					<?php previous_image_link( array( 64, 64 ) ); ?><p><?php previous_image_link( false, '&larr; Previous' ); ?>
+					<?php previous_image_link( array( 64, 64 ) ); ?>
+					<p><?php previous_image_link( false, '&larr; Previous' ); ?></p>
 				</div>
 				<div class="right-navigation navigation-link">
-					<?php next_image_link( array( 64, 64 ) ); ?><p><?php next_image_link( false, 'Next &rarr;' ); ?>
+					<?php next_image_link( array( 64, 64 ) ); ?>
+					<p><?php next_image_link( false, 'Next &rarr;' ); ?></p>
 				</div>
 			</div>
 			
@@ -64,5 +66,3 @@
 </div><!-- END - .wrap -->
 
 <?php get_footer(); ?>
-
-<?php $my_query = new WP_Query('category_name=special_cat'); while ($my_query->have_posts()) : $my_query->the_post(); ?>
