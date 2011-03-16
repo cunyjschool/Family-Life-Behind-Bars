@@ -12,16 +12,16 @@
 		<?php flbb_share_this(); ?>
         
         <div class="entry-content clearfix">
-		<?php if ( in_category('photo-of-the-week') ) { ?>	
-			<div class="clearfix photo-of-the-week">
-				<div class="left"><?php previous_post_link('%link', '&laquo; Previous photo', TRUE); ?></div>
-				<div class="right"><?php next_post_link('%link', 'Next photo &raquo;', TRUE); ?></div>
-			</div>
-			<br />
-		<?php } ?>
 		<?php the_content( __('<p>Read the rest of this entry &raquo;</p>', 'arras') ); ?>  
         <?php wp_link_pages(array('before' => __('<p><strong>Pages:</strong> ', 'arras'), 
 			'after' => '</p>', 'next_or_number' => 'number')); ?>
+			
+		<?php if ( in_category('photo-of-the-week') ) { ?>	
+			<div class="clearfix photo-of-the-week">
+				<div class="left"><?php previous_post_link('&laquo; %link', '%title', TRUE); ?></div>
+				<div class="right"><?php next_post_link('%link  &raquo;', '%title', TRUE); ?></div>
+			</div>
+		<?php } ?>
 		</div>
 
 		<?php arras_postfooter() ?>
@@ -40,17 +40,17 @@
 				<?php 
 					$args = array(
 						'category_name' => 'photo-of-the-week',
-						'posts_per_page' => 15
+						'posts_per_page' => 7
 					);
 					$featured = new WP_Query( $args ); 
 					if ( $featured->have_posts()) { 
 						while($featured->have_posts()) : $featured->the_post(); ?>
-							<li><a href="<?php echo the_permalink(); ?>" title="<?php the_title(); ?>" ><?php the_post_thumbnail( 'thumbnail' ); ?></a></li>
+							<li><a href="<?php echo the_permalink(); ?>" title="<?php the_title(); ?>" ><?php the_post_thumbnail( 'thumbnail', array( 'title' => get_the_title() ) ); ?></a></li>
 						<?php endwhile; 
 					} 
 				?>
 			</ol>
-			<div class="clearfix"></div>
+			<div style="clear:both;"></div>
 	   	</div>
 	<?php } ?>
 
