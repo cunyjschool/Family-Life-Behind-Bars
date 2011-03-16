@@ -36,7 +36,7 @@
 	<?php if ( in_category( 'photo-of-the-week' ) ) { ?>	
 		<h4 class="module-title">Photo of the Week Archive</h4>
 		<div class="nocomments no-bottom-pads photo-of-the-week">
-			<ol id="foo">
+			<ol>
 				<?php 
 					$args = array(
 						'category_name' => 'photo-of-the-week',
