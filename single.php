@@ -45,7 +45,7 @@
 					$featured = new WP_Query( $args ); 
 					if ( $featured->have_posts()) { 
 						while($featured->have_posts()) : $featured->the_post(); ?>
-							<li><a href="<?php echo the_permalink(); ?>" title="<?php the_title(); ?>" ><?php the_post_thumbnail(); ?></a></li>
+							<li><a href="<?php echo the_permalink(); ?>" title="<?php the_title(); ?>" ><?php the_post_thumbnail( 'thumbnail' ); ?></a></li>
 						<?php endwhile; 
 					} 
 				?>
