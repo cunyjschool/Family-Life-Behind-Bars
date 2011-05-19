@@ -51,6 +51,8 @@ $post_blacklist = array();
 	
 </div>
 
+<?php flbb_facebook_wall(); ?>
+
 <?php if ( $featured2_cat !== '' && arras_get_option('enable_featured2') ) : ?>
 <?php arras_above_index_featured2_post() ?>
 <!-- Featured Articles #2 -->
