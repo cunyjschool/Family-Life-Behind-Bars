@@ -87,10 +87,37 @@ class flbb {
 	} // END register_settings()
 	
 	/**
+	 * settings_fbwall_enabled_option()
+	 * Whether or not the Facebook wall functionality appears on the homepage
+	 */
+	function settings_fbwall_enabled_option() {
+		
+		$options = $this->options;
+
+		echo '<select id="fbwall_enabled" name="' . $this->options_group_name . '[fbwall_enabled]">';
+		echo '<option value="off"';
+		if ( isset( $options['fbwall_enabled'] ) && $options['fbwall_enabled'] == 'off' ) {
+			echo ' selected="selected"';
+		}		
+		echo '>Disabled</option>';
+		echo '<option value="on"';
+		if ( isset( $options['fbwall_enabled'] ) && $options['fbwall_enabled'] == 'on' ) {
+			echo ' selected="selected"';
+		}		
+		echo '>Enabled</option>';
+		echo '</select>';
+		
+	} // END settings_fbwall_enabled_option()	
+	
+	/**
 	 * settings_validate()
 	 * Validation and sanitization on the settings field
 	 */
 	function settings_validate( $input ) {
+		
+		if ( $input['fbwall_enabled'] != 'on' ) {
+			$input['fbwall_enabled'] != 'off';
+		}
 		
 		return $input;
 
