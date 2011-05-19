@@ -1,5 +1,5 @@
 <?php
-define( 'FLBB_VERSION', '0.3' );
+define( 'FLBB_VERSION', '0.4' );
 
 
 if ( !class_exists( 'flbb' ) ) {
