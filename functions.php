@@ -61,12 +61,16 @@ class flbb {
 	 * enqueue_resources()
 	 * Enqueue any resources we need
 	 */
-	function enqueue_resources() {
+	function enqueue_resources() {		
 		
 		if ( !is_admin() ) {
 			wp_enqueue_script( 'jquery' );
-			wp_enqueue_script( 'neosmart_fb_wall_js', get_bloginfo('template_directory') . '/lib/jquery.neosmart.fb.wall/jquery.neosmart.fb.wall.js', array( 'jquery' ), FLBB_VERSION, true );
-			wp_enqueue_style( 'neosmart_fb_wall_css', get_bloginfo('template_directory') . '/lib/jquery.neosmart.fb.wall/jquery.neosmart.fb.wall.css', false, FLBB_VERSION );
+			// Only add the Facebook wall functionality if it's enabled
+			$options = $this->options;	 		
+			if ( isset( $options['fbwall_enabled'] ) && $options['fbwall_enabled'] == 'on' ) {
+				wp_enqueue_script( 'neosmart_fb_wall_js', get_stylesheet_directory_uri() . '/lib/jquery.neosmart.fb.wall/jquery.neosmart.fb.wall.js', array( 'jquery' ), FLBB_VERSION );
+				wp_enqueue_style( 'neosmart_fb_wall_css', get_stylesheet_directory_uri() . '/lib/jquery.neosmart.fb.wall/jquery.neosmart.fb.wall.css', false, FLBB_VERSION );
+			}
 		} else {
 		}
 		
@@ -160,5 +164,27 @@ function flbb_share_this() { ?>
 	<span class='st_facebook' st_title='{TITLE}' st_url='{URL}' ></span><span class='st_twitter' st_title='{TITLE}' st_url='{URL}' ></span><span class='st_email' st_title='{TITLE}' st_url='{URL}' ></span><span class='st_sharethis' st_title='{TITLE}' st_url='{URL}' ></span>
 
 <?php } // END flbb_share_this()
+
+/**
+ * flbb_facebook_wall()
+ * Display a Facebook wall based on the FB Wall jQuery plugin
+ */
+function flbb_facebook_wall() {
+	global $flbb;
+	
+	// If the Facebook Wall is enabled
+	if ( isset( $flbb->options['fbwall_enabled'] ) && $flbb->options['fbwall_enabled'] == 'on' ) {
+		echo '<div id="flbb-facebook-wall"></div>';
+		echo "<script type='text/javascript'>jQuery('#flbb-facebook-wall').fbWall({"
+			. "id:'cunyjschool',"
+			. "showGuestEntries:true,"
+			. "showComments:true,"
+			. "max:3,"
+			. "timeConversion:12"
+			. "});</script>";
+		
+	}
+	
+} // END flbb_facebook_wall()
 
 ?>
