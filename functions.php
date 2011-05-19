@@ -84,9 +84,11 @@ class flbb {
 		register_setting( $this->options_group, $this->options_group_name, array( &$this, 'settings_validate' ) );
 
 		// Global options
-		add_settings_section( 'flbb_fbwall', 'Homepage Facebook Wall', array(&$this, 'settings_fbwall_section'), $this->settings_page );
+		add_settings_section( 'flbb_fbwall', 'Homepage Facebook Wall', array(&$this, 'settings_fbwall_section'), $this->settings_page );	
 		add_settings_field( 'fbwall_enabled', 'Homepage Facebook Wall', array(&$this, 'settings_fbwall_enabled_option'), $this->settings_page, 'flbb_fbwall' );		
 		add_settings_field( 'fbwall_id', 'Facebook ID', array(&$this, 'settings_fbwall_id_option'), $this->settings_page, 'flbb_fbwall' );
+		add_settings_field( 'fbwall_item', 'Number of posts to display', array(&$this, 'settings_fbwall_items_option'), $this->settings_page, 'flbb_fbwall' );		
+		add_settings_field( 'fbwall_title', 'Title', array(&$this, 'settings_fbwall_title_option'), $this->settings_page, 'flbb_fbwall' );			
 
 	} // END register_settings()
 	
@@ -111,7 +113,62 @@ class flbb {
 		echo '>Enabled</option>';
 		echo '</select>';
 		
-	} // END settings_fbwall_enabled_option()	
+	} // END settings_fbwall_enabled_option()
+	
+	/**
+	 * settings_fbwall_title_option()
+	 * Title to use with the Facebook Wall
+	 */
+	function settings_fbwall_title_option() {
+		
+		$options = $this->options;
+
+		echo '<input id="fbwall_title" name="' . $this->options_group_name . '[fbwall_title]"';
+		if ( isset( $options['fbwall_title'] ) ) {
+			echo ' value="' . $options['fbwall_title'] . '"';
+		}		
+		echo ' size="80" />';
+		echo '<p class="description">(optional) This appears above the Facebook Wall</p>';
+		
+	} // END settings_fbwall_title_option()	
+	
+	/**
+	 * settings_fbwall_id_option()
+	 * Facebook ID to use with the Facebook wall
+	 */
+	function settings_fbwall_id_option() {
+		
+		$options = $this->options;
+
+		echo '<input id="fbwall_id" name="' . $this->options_group_name . '[fbwall_id]"';
+		if ( isset( $options['fbwall_id'] ) ) {
+			echo ' value="' . $options['fbwall_id'] . '"';
+		}		
+		echo ' size="80" />';
+		echo '<p class="description">Your Facebook ID is what appears in the URL of your Page or Profile'
+			. '<br />(e.g. For facebook.com/cunyjschool, "cunyjschool is the ID")</p>';
+		
+	} // END settings_fbwall_id_option()
+	
+	/**
+	 * settings_fbwall_items_option()
+	 * Whether or not the Facebook wall functionality appears on the homepage
+	 */
+	function settings_fbwall_items_option() {
+		
+		$options = $this->options;
+
+		echo '<select id="fbwall_items" name="' . $this->options_group_name . '[fbwall_items]">';
+		for ( $i = 1; $i <= 10; $i++ ) {
+			echo '<option value="' . $i . '"';
+			if ( isset( $options['fbwall_items'] ) && $options['fbwall_items'] == $i ) {
+				echo ' selected="selected"';
+			}		
+			echo '>' . $i . '</option>';
+		}
+		echo '</select>';
+		
+	} // END settings_fbwall_items_option()		
 	
 	/**
 	 * settings_validate()
@@ -122,6 +179,9 @@ class flbb {
 		if ( $input['fbwall_enabled'] != 'on' ) {
 			$input['fbwall_enabled'] != 'off';
 		}
+		$input['fbwall_title'] = wp_kses( $input['fbwall_title'] );
+		$input['fbwall_id'] = wp_kses( $input['fbwall_id'] );		
+		$input['fbwall_items'] = (int)$input['fbwall_items'];
 		
 		return $input;
 
@@ -174,12 +234,15 @@ function flbb_facebook_wall() {
 	
 	// If the Facebook Wall is enabled
 	if ( isset( $flbb->options['fbwall_enabled'] ) && $flbb->options['fbwall_enabled'] == 'on' ) {
+		if ( isset( $flbb->options['fbwall_title'] ) && $flbb->options['fbwall_title'] ) {
+			echo '<div class="home-title">' . $flbb->options['fbwall_title'] . '</div>';
+		}
 		echo '<div id="flbb-facebook-wall"></div>';
 		echo "<script type='text/javascript'>jQuery('#flbb-facebook-wall').fbWall({"
-			. "id:'cunyjschool',"
+			. "id:'" . $flbb->options['fbwall_id'] . "',"
 			. "showGuestEntries:true,"
 			. "showComments:true,"
-			. "max:3,"
+			. "max:" . $flbb->options['fbwall_items'] . ","
 			. "timeConversion:12"
 			. "});</script>";
 		

@@ -51,3 +51,10 @@ Version:        0.3
 	float:right;
 	text-align:right;
 }
+
+#flbb-facebook-wall {
+	margin-bottom: 20px;
+	width: auto;
+	margin-right: 10px;
+	padding: 10px;
+}
