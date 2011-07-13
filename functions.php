@@ -25,6 +25,10 @@ class flbb {
 		// Add the current options to our object
 		$this->options = get_option( $this->options_group_name );
 		
+		if ( is_admin_bar_showing() ) {
+			add_action( 'admin_bar_menu', array( &$this, 'add_admin_bar_items' ), 70 );
+		}
+		
 	} // END __construct()
 	
 	/**
@@ -56,6 +60,25 @@ class flbb {
 		add_submenu_page( 'themes.php', 'Family Life Behind Bars Theme Options', 'FLBB Theme Options', 'manage_options', 'flbb_options', array( &$this, 'options_page' ) );			
 
 	} // END add_admin_menu_items()	
+	
+	/**
+	 * add_admin_bar_items()
+	 * Custom items for the FLBB theme to WordPress' admin bar
+	 */
+	function add_admin_bar_items() {
+		global $wp_admin_bar;
+		
+		// Add theme management links for users who can	
+		if ( current_user_can('edit_theme_options') ) {
+			$args = array(
+				'title' => 'Theme Options',
+				'href' => admin_url( 'themes.php?page=flbb_options' ),
+				'parent' => 'appearance',
+			);
+			$wp_admin_bar->add_menu( $args );
+		}
+		
+	} // END add_admin_bar_items()
 	
 	/**
 	 * enqueue_resources()
