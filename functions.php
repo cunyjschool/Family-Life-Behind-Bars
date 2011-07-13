@@ -1,5 +1,5 @@
 <?php
-define( 'FLBB_VERSION', '0.4' );
+define( 'FLBB_VERSION', '0.4.1' );
 
 
 if ( !class_exists( 'flbb' ) ) {
@@ -24,6 +24,10 @@ class flbb {
 		
 		// Add the current options to our object
 		$this->options = get_option( $this->options_group_name );
+		
+		if ( is_admin_bar_showing() ) {
+			add_action( 'admin_bar_menu', array( &$this, 'add_admin_bar_items' ), 70 );
+		}
 		
 	} // END __construct()
 	
@@ -58,6 +62,25 @@ class flbb {
 	} // END add_admin_menu_items()	
 	
 	/**
+	 * add_admin_bar_items()
+	 * Custom items for the FLBB theme to WordPress' admin bar
+	 */
+	function add_admin_bar_items() {
+		global $wp_admin_bar;
+		
+		// Add theme management links for users who can	
+		if ( current_user_can('edit_theme_options') ) {
+			$args = array(
+				'title' => 'Theme Options',
+				'href' => admin_url( 'themes.php?page=flbb_options' ),
+				'parent' => 'appearance',
+			);
+			$wp_admin_bar->add_menu( $args );
+		}
+		
+	} // END add_admin_bar_items()
+	
+	/**
 	 * enqueue_resources()
 	 * Enqueue any resources we need
 	 */
@@ -71,7 +94,6 @@ class flbb {
 				wp_enqueue_script( 'neosmart_fb_wall_js', get_stylesheet_directory_uri() . '/lib/jquery.neosmart.fb.wall/jquery.neosmart.fb.wall.js', array( 'jquery' ), FLBB_VERSION );
 				wp_enqueue_style( 'neosmart_fb_wall_css', get_stylesheet_directory_uri() . '/lib/jquery.neosmart.fb.wall/jquery.neosmart.fb.wall.css', false, FLBB_VERSION );
 			}
-		} else {
 		}
 		
 	} // END enqueue_resources()
@@ -84,11 +106,12 @@ class flbb {
 		register_setting( $this->options_group, $this->options_group_name, array( &$this, 'settings_validate' ) );
 
 		// Global options
-		add_settings_section( 'flbb_fbwall', 'Homepage Facebook Wall', array(&$this, 'settings_fbwall_section'), $this->settings_page );	
-		add_settings_field( 'fbwall_enabled', 'Homepage Facebook Wall', array(&$this, 'settings_fbwall_enabled_option'), $this->settings_page, 'flbb_fbwall' );		
-		add_settings_field( 'fbwall_id', 'Facebook ID', array(&$this, 'settings_fbwall_id_option'), $this->settings_page, 'flbb_fbwall' );
-		add_settings_field( 'fbwall_item', 'Number of posts to display', array(&$this, 'settings_fbwall_items_option'), $this->settings_page, 'flbb_fbwall' );		
-		add_settings_field( 'fbwall_title', 'Title', array(&$this, 'settings_fbwall_title_option'), $this->settings_page, 'flbb_fbwall' );			
+		add_settings_section( 'flbb_fbwall', 'Homepage Facebook Wall', array( &$this, 'settings_fbwall_section' ), $this->settings_page );	
+		add_settings_field( 'fbwall_enabled', 'Homepage Facebook Wall', array( &$this, 'settings_fbwall_enabled_option' ), $this->settings_page, 'flbb_fbwall' );		
+		add_settings_field( 'fbwall_id', 'Facebook ID', array( &$this, 'settings_fbwall_id_option' ), $this->settings_page, 'flbb_fbwall' );
+		add_settings_field( 'fbwall_at', 'Access Token', array( &$this, 'settings_fbwall_at_option' ), $this->settings_page, 'flbb_fbwall' );		
+		add_settings_field( 'fbwall_item', 'Number of posts to display', array( &$this, 'settings_fbwall_items_option' ), $this->settings_page, 'flbb_fbwall' );		
+		add_settings_field( 'fbwall_title', 'Title', array( &$this, 'settings_fbwall_title_option' ), $this->settings_page, 'flbb_fbwall' );			
 
 	} // END register_settings()
 	
@@ -149,6 +172,23 @@ class flbb {
 			. '<br />(e.g. For facebook.com/cunyjschool, "cunyjschool is the ID")</p>';
 		
 	} // END settings_fbwall_id_option()
+	
+	/**
+	 * settings_fbwall_at_option()
+	 * Facebook Access Token to use with the Facebook wall
+	 */
+	function settings_fbwall_at_option() {
+		
+		$options = $this->options;
+
+		echo '<input id="fbwall_at" name="' . $this->options_group_name . '[fbwall_at]"';
+		if ( isset( $options['fbwall_at'] ) ) {
+			echo ' value="' . $options['fbwall_at'] . '"';
+		}		
+		echo ' size="80" />';
+		echo '<p class="description">You need to create an access token in order to display your Facebook Wall.</p>';
+		
+	} // END settings_fbwall_at_option()	
 	
 	/**
 	 * settings_fbwall_items_option()
@@ -240,6 +280,7 @@ function flbb_facebook_wall() {
 		echo '<div id="flbb-facebook-wall"></div>';
 		echo "<script type='text/javascript'>jQuery('#flbb-facebook-wall').fbWall({"
 			. "id:'" . $flbb->options['fbwall_id'] . "',"
+			. "accessToken:'" . $flbb->options['fbwall_at'] . "'," 
 			. "showGuestEntries:true,"
 			. "showComments:true,"
 			. "max:" . $flbb->options['fbwall_items'] . ","
